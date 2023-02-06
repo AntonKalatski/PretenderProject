@@ -4,7 +4,7 @@ namespace Game.StateMachine.Player
 {
     public class PlayerTestState : PlayerBaseState
     {
-        private float timer = 5f;
+        private float _timer;
 
         public PlayerTestState(PlayerStateMachine playerStateMachine) : base(playerStateMachine)
         {
@@ -13,18 +13,37 @@ namespace Game.StateMachine.Player
         public override void Enter()
         {
             Debug.Log(nameof(Enter));
+            SubscribeInputEvents();
         }
 
         public override void Tick()
         {
-            timer -= Time.deltaTime;
-            Debug.Log(timer);
-            if (timer <= 0) PlayerStateMachine.SwitchState(new PlayerTestState(PlayerStateMachine));
+            _timer += Time.deltaTime;
+            Debug.Log(_timer);
         }
 
         public override void Exit()
         {
             Debug.Log(nameof(Exit));
+            UnsubscribeInputEvents();
+        }
+
+        private void SubscribeInputEvents()
+        {
+            PlayerStateMachine.InputService.OnJumpEvent += OnJumpEventHandler;
+            PlayerStateMachine.InputService.OnDodgeEvent += OnDodgeEventHandler;
+        }
+
+        private void UnsubscribeInputEvents()
+        {
+            PlayerStateMachine.InputService.OnJumpEvent -= OnJumpEventHandler;
+            PlayerStateMachine.InputService.OnDodgeEvent -= OnDodgeEventHandler;
+        }
+
+        private void OnJumpEventHandler() => PlayerStateMachine.SwitchState(new PlayerTestState(PlayerStateMachine));
+
+        private void OnDodgeEventHandler()
+        {
         }
     }
 }
