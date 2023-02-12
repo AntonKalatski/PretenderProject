@@ -4,6 +4,8 @@ namespace Game.StateMachine.Player
 {
     public class PlayerTestState : PlayerBaseState
     {
+        private static readonly int _movementSpeed = Animator.StringToHash("MovementSpeed");
+
         public PlayerTestState(PlayerStateMachine playerStateMachine) : base(playerStateMachine)
         {
         }
@@ -15,12 +17,14 @@ namespace Game.StateMachine.Player
 
         public override void Tick()
         {
-            var movementSpeed = PlayerStateMachine.MovementSpeed;
+            var transform = PlayerStateMachine.transform;
+            var movementSpeed = PlayerStateMachine.MovementSpeed * Time.deltaTime;
+            var rotationSpeed = PlayerStateMachine.RotationSpeed * Time.deltaTime;
             var movementValue = PlayerStateMachine.InputService.MovementValue;
-            Vector3 movement = new Vector3(movementValue.x, 0f, movementValue.y);
-            PlayerStateMachine.CharacterController.Move(movement * (movementSpeed * Time.deltaTime));
-            if (movement == Vector3.zero) return;
-            PlayerStateMachine.CharacterController.transform.rotation = Quaternion.LookRotation(movement);
+            var direction = new Vector3(movementValue.x, 0f, movementValue.y);
+            PlayerStateMachine.Animator.SetFloat(_movementSpeed, movementValue.magnitude, 0.1f, Time.deltaTime);
+            PlayerStateMachine.CharacterController.Move(direction * movementSpeed);
+            if (direction != Vector3.zero) transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), rotationSpeed);
         }
 
         public override void Exit()

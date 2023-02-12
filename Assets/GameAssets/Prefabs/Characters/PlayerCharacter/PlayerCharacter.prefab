@@ -846,6 +846,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <InputService>k__BackingField: {fileID: 6752950321397023903}
   <CharacterController>k__BackingField: {fileID: 9158674617038427429}
+  <Animator>k__BackingField: {fileID: 6597657134308651749}
+  <MovementSpeed>k__BackingField: 5
 --- !u!114 &6752950321397023903
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -34,7 +34,7 @@ public class InputService : MonoBehaviour, InputProvider.IPlayerActions
         if (!context.performed) return;
         
         OnDodgeEvent?.Invoke();
-        Debug.Log($"{nameof(OnJump)} Pressed");
+        Debug.Log($"{nameof(OnDodge)} Pressed");
     }
 
     public void OnMove(InputAction.CallbackContext context)
