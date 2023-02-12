@@ -1,5 +1,5 @@
-using Modules.StateMachine;
 using UnityEngine;
+using Modules.StateMachine;
 
 namespace Game.StateMachine.Player
 {
