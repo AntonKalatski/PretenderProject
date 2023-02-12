@@ -41,4 +41,8 @@ public class InputService : MonoBehaviour, InputProvider.IPlayerActions
     {
         MovementValue = context.ReadValue<Vector2>();
     }
+
+    public void OnLook(InputAction.CallbackContext context)
+    {
+    }
 }
