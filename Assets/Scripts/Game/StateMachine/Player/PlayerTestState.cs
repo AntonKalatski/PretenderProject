@@ -4,7 +4,7 @@ namespace Game.StateMachine.Player
 {
     public class PlayerTestState : PlayerBaseState
     {
-        private float _timer;
+        private float _movementSpeed = 5f;
 
         public PlayerTestState(PlayerStateMachine playerStateMachine) : base(playerStateMachine)
         {
@@ -12,14 +12,15 @@ namespace Game.StateMachine.Player
 
         public override void Enter()
         {
-            Debug.Log(nameof(Enter));
             SubscribeInputEvents();
         }
 
         public override void Tick()
         {
-            _timer += Time.deltaTime;
-            Debug.Log(_timer);
+            var movementValue = PlayerStateMachine.InputService.MovementValue;
+            Vector3 movement = new Vector3(movementValue.x, 0f, movementValue.y);
+            PlayerStateMachine.transform.Translate(movement * _movementSpeed * Time.deltaTime);
+            Debug.Log(PlayerStateMachine.InputService.MovementValue);
         }
 
         public override void Exit()
