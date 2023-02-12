@@ -806,6 +806,7 @@ GameObject:
   - component: {fileID: 2135153565239648168}
   - component: {fileID: 4707462108610702138}
   - component: {fileID: 6752950321397023903}
+  - component: {fileID: 9158674617038427429}
   - component: {fileID: 6597657134308651749}
   m_Layer: 0
   m_Name: PlayerCharacter
@@ -844,6 +845,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <InputService>k__BackingField: {fileID: 6752950321397023903}
+  <CharacterController>k__BackingField: {fileID: 9158674617038427429}
 --- !u!114 &6752950321397023903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -856,6 +858,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ff416e40aa2a477593bc65c93cad382, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!143 &9158674617038427429
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1651209688147346706}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 2.2
+  m_Radius: 0.3
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.025
+  m_MinMoveDistance: 0
+  m_Center: {x: 0, y: 1.1, z: 0}
 --- !u!95 &6597657134308651749
 Animator:
   serializedVersion: 5
