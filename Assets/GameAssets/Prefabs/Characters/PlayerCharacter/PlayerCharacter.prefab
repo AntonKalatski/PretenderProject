@@ -831,7 +831,7 @@ Transform:
   - {fileID: 5904716186818117436}
   - {fileID: 6522404008795696718}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4707462108610702138
 MonoBehaviour:
@@ -848,8 +848,8 @@ MonoBehaviour:
   <InputService>k__BackingField: {fileID: 6752950321397023903}
   <CharacterController>k__BackingField: {fileID: 9158674617038427429}
   <Animator>k__BackingField: {fileID: 6597657134308651749}
-  <MovementSpeed>k__BackingField: 5
-  <RotationSpeed>k__BackingField: 8
+  <MovementConfig>k__BackingField: {fileID: 11400000, guid: 1113cd3e2b5b2447eb9d257b2358b07f,
+    type: 2}
 --- !u!114 &6752950321397023903
 MonoBehaviour:
   m_ObjectHideFlags: 0

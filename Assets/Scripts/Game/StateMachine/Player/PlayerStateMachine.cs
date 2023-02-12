@@ -1,4 +1,5 @@
 using System;
+using Game.Configs.Player;
 using UnityEngine;
 using Modules.StateMachine;
 
@@ -9,12 +10,14 @@ namespace Game.StateMachine.Player
         [field: SerializeField] public InputService InputService { get; private set; }
         [field: SerializeField] public CharacterController CharacterController { get; private set; }
         [field: SerializeField] public Animator Animator { get; private set; }
-        [field: SerializeField] public float MovementSpeed { get; private set; } = 5f;
-        [field: SerializeField] public float RotationSpeed { get; private set; } = 1f;
+        [field: SerializeField] public PlayerMovementConfig MovementConfig { get; private set; } // make through config provider etc
+
+        public Transform MainCamera { get; private set; }
 
         private void Start()
         {
-            SwitchState(new PlayerTestState(this));
+            MainCamera = Camera.main.transform;
+            SwitchState(new PlayerMovementState(this));
         }
     }
 }
