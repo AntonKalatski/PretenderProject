@@ -851,6 +851,7 @@ MonoBehaviour:
   <Animator>k__BackingField: {fileID: 6597657134308651749}
   <MovementConfig>k__BackingField: {fileID: 11400000, guid: 1113cd3e2b5b2447eb9d257b2358b07f,
     type: 2}
+  <Targeter>k__BackingField: {fileID: 5994397194378556608}
 --- !u!114 &6752950321397023903
 MonoBehaviour:
   m_ObjectHideFlags: 0

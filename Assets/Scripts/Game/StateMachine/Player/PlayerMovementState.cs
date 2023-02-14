@@ -6,6 +6,8 @@ namespace Game.StateMachine.Player
     public class PlayerMovementState : PlayerBaseState
     {
         private static readonly int _movementSpeed = Animator.StringToHash("MovementSpeed");
+        private static readonly int _movementBlendTree = Animator.StringToHash("Movement");
+        
         private readonly PlayerMovementConfig _movementConfig;
         private readonly Transform _transform;
         private float MovementSpeed => PlayerStateMachine.MovementConfig.MovementSpeed * Time.deltaTime;
@@ -14,7 +16,11 @@ namespace Game.StateMachine.Player
         public PlayerMovementState(PlayerStateMachine playerStateMachine) : base(playerStateMachine) =>
             _transform = playerStateMachine.transform;
 
-        public override void Enter() => SubscribeInputEvents();
+        public override void Enter()
+        {
+            PlayerStateMachine.Animator.Play(_movementBlendTree);
+            SubscribeInputEvents();
+        }
 
         public override void Exit() => UnsubscribeInputEvents();
 
@@ -50,6 +56,7 @@ namespace Game.StateMachine.Player
         }
         private void OnLockUnlockTargetHandler()
         {
+            if (!PlayerStateMachine.Targeter.TrySelectTarget()) return;
             PlayerStateMachine.SwitchState(new PlayerTargetingState(PlayerStateMachine));
         }
 

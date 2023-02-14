@@ -5,7 +5,8 @@ namespace Game.CombatSystem.Targeting
 {
     public class Targeter : MonoBehaviour
     {
-        [SerializeField] private List<Target> _targets = new();
+        private List<Target> _targets = new();
+        public Target CurrentTarget { get; private set; }
 
         private void OnTriggerEnter(Collider other)
         {
@@ -20,9 +21,16 @@ namespace Game.CombatSystem.Targeting
                 _targets.Remove(target);
         }
 
-        public void SelectTarget()
+        public bool TrySelectTarget()
         {
-            
+            if(_targets.Count == 0) return false;
+            CurrentTarget = _targets[0];
+            return true;
+        }
+
+        public void ResetCurrentTarget()
+        {
+            if (!ReferenceEquals(CurrentTarget, null)) CurrentTarget = null;
         }
     }
 }
