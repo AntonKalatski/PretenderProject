@@ -9,9 +9,10 @@ namespace Game.StateMachine.Player
         private readonly PlayerMovementConfig _movementConfig;
         private readonly Transform _transform;
         private float MovementSpeed => PlayerStateMachine.MovementConfig.MovementSpeed * Time.deltaTime;
-        private float RotationSpeed =>  PlayerStateMachine.MovementConfig.RotationSpeed * Time.deltaTime;
+        private float RotationSpeed => PlayerStateMachine.MovementConfig.RotationSpeed * Time.deltaTime;
 
-        public PlayerMovementState(PlayerStateMachine playerStateMachine) : base(playerStateMachine) => _transform = playerStateMachine.transform;
+        public PlayerMovementState(PlayerStateMachine playerStateMachine) : base(playerStateMachine) =>
+            _transform = playerStateMachine.transform;
 
         public override void Enter() => SubscribeInputEvents();
 
@@ -29,21 +30,27 @@ namespace Game.StateMachine.Player
         {
             PlayerStateMachine.InputService.OnJumpEvent += OnJumpEventHandler;
             PlayerStateMachine.InputService.OnDodgeEvent += OnDodgeEventHandler;
+            PlayerStateMachine.InputService.OnLockUnlockTargetEvent += OnLockUnlockTargetHandler;
         }
 
         private void UnsubscribeInputEvents()
         {
             PlayerStateMachine.InputService.OnJumpEvent -= OnJumpEventHandler;
             PlayerStateMachine.InputService.OnDodgeEvent -= OnDodgeEventHandler;
+            PlayerStateMachine.InputService.OnLockUnlockTargetEvent -= OnLockUnlockTargetHandler;
         }
 
         private void OnJumpEventHandler()
         {
-            PlayerStateMachine.SwitchState(new PlayerMovementState(PlayerStateMachine));
+            // PlayerStateMachine.SwitchState(new PlayerMovementState(PlayerStateMachine));
         }
 
         private void OnDodgeEventHandler()
         {
+        }
+        private void OnLockUnlockTargetHandler()
+        {
+            PlayerStateMachine.SwitchState(new PlayerTargetingState(PlayerStateMachine));
         }
 
         private void PerformMovement(Vector3 direction)
@@ -59,7 +66,8 @@ namespace Game.StateMachine.Player
         private void PreformRotation(Vector3 direction)
         {
             if (direction == Vector3.zero) return;
-            _transform.rotation = Quaternion.Lerp(_transform.rotation, Quaternion.LookRotation(direction), RotationSpeed);
+            _transform.rotation =
+                Quaternion.Lerp(_transform.rotation, Quaternion.LookRotation(direction), RotationSpeed);
         }
 
         private Vector3 CalculateMovement()

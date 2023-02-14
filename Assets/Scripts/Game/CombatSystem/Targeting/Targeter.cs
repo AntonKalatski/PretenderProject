@@ -5,7 +5,7 @@ namespace Game.CombatSystem.Targeting
 {
     public class Targeter : MonoBehaviour
     {
-        [SerializeField] private HashSet<Target> _targets = new();
+        [SerializeField] private List<Target> _targets = new();
 
         private void OnTriggerEnter(Collider other)
         {
@@ -20,8 +20,9 @@ namespace Game.CombatSystem.Targeting
                 _targets.Remove(target);
         }
 
-        private void OnTriggerStay(Collider other)
+        public void SelectTarget()
         {
+            
         }
     }
 }
