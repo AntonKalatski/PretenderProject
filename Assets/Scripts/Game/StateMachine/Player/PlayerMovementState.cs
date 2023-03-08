@@ -27,7 +27,7 @@ namespace Game.StateMachine.Player
         public override void Tick()
         {
             var direction = CalculateMovement();
-            PerformMovement(direction);
+            Move(direction * MovementSpeed);
             PreformRotation(direction);
             PreformAnimation(direction);
         }
@@ -54,15 +54,11 @@ namespace Game.StateMachine.Player
         private void OnDodgeEventHandler()
         {
         }
+        
         private void OnLockUnlockTargetHandler()
         {
             if (!PlayerStateMachine.Targeter.TrySelectTarget()) return;
             PlayerStateMachine.SwitchState(new PlayerTargetingState(PlayerStateMachine));
-        }
-
-        private void PerformMovement(Vector3 direction)
-        {
-            PlayerStateMachine.CharacterController.Move(direction * MovementSpeed);
         }
 
         private void PreformAnimation(Vector3 direction)

@@ -18,7 +18,8 @@ namespace Game.StateMachine.Player
 
         public override void Tick()
         {
-            Debug.Log(PlayerStateMachine.Targeter.CurrentTarget.name);
+            if (PlayerStateMachine.Targeter.CurrentTarget is not null) return;
+            PlayerStateMachine.SwitchState(new PlayerMovementState(PlayerStateMachine));
         }
 
         public override void Exit()

@@ -1,6 +1,7 @@
 using System;
 using Game.CombatSystem.Targeting;
 using Game.Configs.Player;
+using Game.Forces;
 using UnityEngine;
 using Modules.StateMachine;
 
@@ -13,6 +14,8 @@ namespace Game.StateMachine.Player
         [field: SerializeField] public Animator Animator { get; private set; }
         [field: SerializeField] public PlayerMovementConfig MovementConfig { get; private set; } // make through config provider etc
         [field: SerializeField] public Targeter Targeter { get; private set; } 
+        
+        [field: SerializeField] public ForcesReceiver ForcesReceiver { get; private set; } 
 
         public Transform MainCamera { get; private set; }
 
