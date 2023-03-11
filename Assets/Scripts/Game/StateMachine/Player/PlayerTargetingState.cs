@@ -5,7 +5,8 @@ namespace Game.StateMachine.Player
     public class PlayerTargetingState : PlayerBaseState
     {
         private static readonly int _targetingBlendTree = Animator.StringToHash("Targeting");
-
+        private static readonly int _targetingForward = Animator.StringToHash("TargetingForward");
+        private static readonly int _targetingRight = Animator.StringToHash("TargetingRight");
         public PlayerTargetingState(PlayerStateMachine playerStateMachine) : base(playerStateMachine)
         {
         }
@@ -18,9 +19,42 @@ namespace Game.StateMachine.Player
 
         public override void Tick()
         {
-            if (PlayerStateMachine.Targeter.CurrentTarget is not null) return;
-            PlayerStateMachine.SwitchState(new PlayerMovementState(PlayerStateMachine));
+            if (PlayerStateMachine.Targeter.CurrentTarget is null)
+            {
+                PlayerStateMachine.SwitchState(new PlayerMovementState(PlayerStateMachine));
+                return;
+            }
+
+            var direction = CalculateMovement();
+            Move(direction * (PlayerStateMachine.MovementConfig.MovementSpeed * Time.deltaTime));
+            PreformAnimation();
+            FaceTarget();
         }
+
+        private void PreformAnimation()
+        {
+            var movementValue = PlayerStateMachine.InputService.MovementValue;
+            
+            if (movementValue.y == 0)
+            {
+                PlayerStateMachine.Animator.SetFloat(_targetingForward, 0, 0.1f, Time.deltaTime);
+            }
+            else
+            {
+                PlayerStateMachine.Animator.SetFloat(_targetingForward, movementValue.y > 0 ? 1f : -1f, 0.1f, Time.deltaTime);
+            }
+            
+            if (movementValue.x == 0)
+            {
+                PlayerStateMachine.Animator.SetFloat(_targetingRight, 0, 0.1f, Time.deltaTime);
+            }
+            else
+            {
+                PlayerStateMachine.Animator.SetFloat(_targetingRight, movementValue.x > 0 ? 1f : -1f, 0.1f, Time.deltaTime);
+            }
+            
+        }
+
 
         public override void Exit()
         {
@@ -37,6 +71,15 @@ namespace Game.StateMachine.Player
         private void OnLockUnlockTargetHandler()
         {
             PlayerStateMachine.SwitchState(new PlayerMovementState(PlayerStateMachine));
+        }
+
+        private Vector3 CalculateMovement()
+        {
+            var movement = new Vector3();
+            var transform = PlayerStateMachine.transform;
+            movement += transform.right * PlayerStateMachine.InputService.MovementValue.x;
+            movement += transform.forward * PlayerStateMachine.InputService.MovementValue.y;
+            return movement;
         }
     }
 }

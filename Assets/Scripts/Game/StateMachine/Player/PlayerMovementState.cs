@@ -7,11 +7,9 @@ namespace Game.StateMachine.Player
     {
         private static readonly int _movementSpeed = Animator.StringToHash("MovementSpeed");
         private static readonly int _movementBlendTree = Animator.StringToHash("Movement");
-        
+
         private readonly PlayerMovementConfig _movementConfig;
         private readonly Transform _transform;
-        private float MovementSpeed => PlayerStateMachine.MovementConfig.MovementSpeed * Time.deltaTime;
-        private float RotationSpeed => PlayerStateMachine.MovementConfig.RotationSpeed * Time.deltaTime;
 
         public PlayerMovementState(PlayerStateMachine playerStateMachine) : base(playerStateMachine) =>
             _transform = playerStateMachine.transform;
@@ -22,12 +20,15 @@ namespace Game.StateMachine.Player
             SubscribeInputEvents();
         }
 
-        public override void Exit() => UnsubscribeInputEvents();
+        public override void Exit()
+        {
+            UnsubscribeInputEvents();
+        }
 
         public override void Tick()
         {
             var direction = CalculateMovement();
-            Move(direction * MovementSpeed);
+            Move(direction * (PlayerStateMachine.MovementConfig.MovementSpeed * Time.deltaTime));
             PreformRotation(direction);
             PreformAnimation(direction);
         }
@@ -54,7 +55,7 @@ namespace Game.StateMachine.Player
         private void OnDodgeEventHandler()
         {
         }
-        
+
         private void OnLockUnlockTargetHandler()
         {
             if (!PlayerStateMachine.Targeter.TrySelectTarget()) return;
@@ -69,20 +70,20 @@ namespace Game.StateMachine.Player
         private void PreformRotation(Vector3 direction)
         {
             if (direction == Vector3.zero) return;
-            _transform.rotation =
-                Quaternion.Lerp(_transform.rotation, Quaternion.LookRotation(direction), RotationSpeed);
+            _transform.rotation = Quaternion.Lerp(_transform.rotation, Quaternion.LookRotation(direction),
+                PlayerStateMachine.MovementConfig.RotationSpeed * Time.deltaTime);
         }
 
         private Vector3 CalculateMovement()
         {
             var movement = PlayerStateMachine.InputService.MovementValue;
-            var forward = PlayerStateMachine.MainCamera.forward;
-            var right = PlayerStateMachine.MainCamera.right;
-            forward.y = 0;
-            right.y = 0;
-            forward.Normalize();
-            right.Normalize();
-            return forward * movement.y + right * movement.x;
+            var cameraForward = PlayerStateMachine.MainCamera.forward;
+            var cameraRight = PlayerStateMachine.MainCamera.right;
+            cameraForward.y = 0;
+            cameraRight.y = 0;
+            cameraForward.Normalize();
+            cameraRight.Normalize();
+            return cameraForward * movement.y + cameraRight * movement.x;
         }
     }
 }
