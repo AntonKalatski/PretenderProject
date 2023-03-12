@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Cinemachine;
 using System.Linq;
@@ -10,12 +11,37 @@ namespace Game.CombatSystem.Targeting
         [SerializeField] private CinemachineTargetGroup _targetGroup;
 
         private HashSet<Target> _targets = new();
+        private Camera _camera;
         public Target CurrentTarget { get; private set; }
+
+        private void Awake()
+        {
+            _camera = Camera.main;
+        }
 
         public bool TrySelectTarget()
         {
             if (_targets.Count == 0) return false;
-            CurrentTarget = _targets.First();
+            Target closestTarget = null;
+            float closestTargetDistance = float.PositiveInfinity;
+
+            foreach (var target in _targets)
+            {
+                Vector2 viewPos = _camera.WorldToViewportPoint(target.transform.position);
+                if (viewPos.x < 0 || viewPos.x > 1 || viewPos.y < 0 || viewPos.y > 1) continue;
+
+                Vector2 toCenter = viewPos - new Vector2(0.5f, 0.5f);
+                float toCenterMagnitude = toCenter.sqrMagnitude;
+                if (toCenterMagnitude < closestTargetDistance)
+                {
+                    closestTarget = target;
+                    closestTargetDistance = toCenterMagnitude;
+                }
+            }
+
+            if (closestTarget is null) return false;
+
+            CurrentTarget = closestTarget;
             _targetGroup.AddMember(CurrentTarget.transform, 1, 2); //weight and radius from config!
             return true;
         }
