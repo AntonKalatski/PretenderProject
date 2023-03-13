@@ -1,6 +1,5 @@
 using UnityEngine;
 using Modules.StateMachine;
-using UnityEngine.Assertions.Must;
 
 namespace Game.StateMachine.Player
 {
@@ -9,9 +8,14 @@ namespace Game.StateMachine.Player
         protected readonly PlayerStateMachine PlayerStateMachine;
         protected PlayerBaseState(PlayerStateMachine playerStateMachine) => PlayerStateMachine = playerStateMachine;
 
+        protected void Move()
+        {
+            Move(Vector3.zero);
+        }
+
         protected void Move(Vector3 direction)
         {
-            PlayerStateMachine.CharacterController.Move(direction + PlayerStateMachine.ForcesReceiver.Movement);
+            PlayerStateMachine.CharacterController.Move((direction + PlayerStateMachine.ForcesReceiver.Movement) * Time.deltaTime);
         }
 
         protected void FaceTarget()

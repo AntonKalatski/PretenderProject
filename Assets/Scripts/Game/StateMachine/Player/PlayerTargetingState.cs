@@ -26,11 +26,39 @@ namespace Game.StateMachine.Player
             }
 
             var direction = CalculateMovement();
-            Move(direction * (PlayerStateMachine.MovementConfig.MovementSpeed * Time.deltaTime));
+            Move(direction * PlayerStateMachine.MovementConfig.MovementSpeed);
             PreformAnimation();
             FaceTarget();
         }
 
+        public override void Exit()
+        {
+            UnsubscribeInputEvents();
+            PlayerStateMachine.Targeter.ResetCurrentTarget();
+        }
+
+        private void SubscribeInputEvents()
+        {
+            PlayerStateMachine.InputService.OnLockUnlockTargetEvent += OnLockUnlockTargetHandler;
+            PlayerStateMachine.InputService.OnAttackEvent += OnAttackEventHandler;
+        }
+
+        private void UnsubscribeInputEvents()
+        {
+            PlayerStateMachine.InputService.OnLockUnlockTargetEvent -= OnLockUnlockTargetHandler;
+            PlayerStateMachine.InputService.OnAttackEvent -= OnAttackEventHandler;
+        }
+
+        private void OnAttackEventHandler()
+        {
+            PlayerStateMachine.SwitchState(new PlayerAttackingState(PlayerStateMachine, 0));
+        }
+
+        private void OnLockUnlockTargetHandler()
+        {
+            PlayerStateMachine.SwitchState(new PlayerMovementState(PlayerStateMachine));
+        }
+        
         private void PreformAnimation()
         {
             var movementValue = PlayerStateMachine.InputService.MovementValue;
@@ -52,25 +80,6 @@ namespace Game.StateMachine.Player
             {
                 PlayerStateMachine.Animator.SetFloat(_targetingRight, movementValue.x > 0 ? 1f : -1f, 0.1f, Time.deltaTime);
             }
-            
-        }
-
-
-        public override void Exit()
-        {
-            UnsubscribeInputEvents();
-            PlayerStateMachine.Targeter.ResetCurrentTarget();
-        }
-
-        private void SubscribeInputEvents() =>
-            PlayerStateMachine.InputService.OnLockUnlockTargetEvent += OnLockUnlockTargetHandler;
-
-        private void UnsubscribeInputEvents() =>
-            PlayerStateMachine.InputService.OnLockUnlockTargetEvent -= OnLockUnlockTargetHandler;
-
-        private void OnLockUnlockTargetHandler()
-        {
-            PlayerStateMachine.SwitchState(new PlayerMovementState(PlayerStateMachine));
         }
 
         private Vector3 CalculateMovement()

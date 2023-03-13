@@ -8,6 +8,7 @@ public class InputService : MonoBehaviour, InputProvider.IPlayerActions
     public Vector2 MovementValue { get; private set; }
     public event Action OnJumpEvent;
     public event Action OnDodgeEvent;
+    public event Action OnAttackEvent;
     public event Action OnLockUnlockTargetEvent;
 
     private void Awake()
@@ -52,5 +53,11 @@ public class InputService : MonoBehaviour, InputProvider.IPlayerActions
         if (!context.performed) return;
         OnLockUnlockTargetEvent?.Invoke();
         Debug.Log($"{nameof(OnLockUnlockTarget)} Pressed");
+    }
+
+    public void OnAttack(InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
+        OnAttackEvent?.Invoke();
     }
 }

@@ -28,7 +28,7 @@ namespace Game.StateMachine.Player
         public override void Tick()
         {
             var direction = CalculateMovement();
-            Move(direction * (PlayerStateMachine.MovementConfig.MovementSpeed * Time.deltaTime));
+            Move(direction * PlayerStateMachine.MovementConfig.MovementSpeed);
             PreformRotation(direction);
             PreformAnimation(direction);
         }
@@ -37,6 +37,7 @@ namespace Game.StateMachine.Player
         {
             PlayerStateMachine.InputService.OnJumpEvent += OnJumpEventHandler;
             PlayerStateMachine.InputService.OnDodgeEvent += OnDodgeEventHandler;
+            PlayerStateMachine.InputService.OnAttackEvent += OnAttackEventHandler;
             PlayerStateMachine.InputService.OnLockUnlockTargetEvent += OnLockUnlockTargetHandler;
         }
 
@@ -44,6 +45,7 @@ namespace Game.StateMachine.Player
         {
             PlayerStateMachine.InputService.OnJumpEvent -= OnJumpEventHandler;
             PlayerStateMachine.InputService.OnDodgeEvent -= OnDodgeEventHandler;
+            PlayerStateMachine.InputService.OnAttackEvent -= OnAttackEventHandler;
             PlayerStateMachine.InputService.OnLockUnlockTargetEvent -= OnLockUnlockTargetHandler;
         }
 
@@ -54,6 +56,11 @@ namespace Game.StateMachine.Player
 
         private void OnDodgeEventHandler()
         {
+        }
+
+        private void OnAttackEventHandler()
+        {
+            PlayerStateMachine.SwitchState(new PlayerAttackingState(PlayerStateMachine, 0));
         }
 
         private void OnLockUnlockTargetHandler()
