@@ -924,71 +924,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3010686055665750253, guid: a3ae2fbd1d5c64e3791fae198d387ca9,
-        type: 3}
-      propertyPath: <AttackDatas>k__BackingField.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3010686055665750253, guid: a3ae2fbd1d5c64e3791fae198d387ca9,
-        type: 3}
-      propertyPath: <AttackDatas>k__BackingField.Array.data[0].<AnimationName>k__BackingField
-      value: Attack1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3010686055665750253, guid: a3ae2fbd1d5c64e3791fae198d387ca9,
-        type: 3}
-      propertyPath: <AttackDatas>k__BackingField.Array.data[1].<AnimationName>k__BackingField
-      value: Attack2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3010686055665750253, guid: a3ae2fbd1d5c64e3791fae198d387ca9,
-        type: 3}
-      propertyPath: <AttackDatas>k__BackingField.Array.data[2].<AnimationName>k__BackingField
-      value: Attack3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3010686055665750253, guid: a3ae2fbd1d5c64e3791fae198d387ca9,
-        type: 3}
-      propertyPath: <AttackDatas>k__BackingField.Array.data[0].<ComboAttackTime>k__BackingField
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3010686055665750253, guid: a3ae2fbd1d5c64e3791fae198d387ca9,
-        type: 3}
-      propertyPath: <AttackDatas>k__BackingField.Array.data[0].<ComboStateIndex>k__BackingField
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3010686055665750253, guid: a3ae2fbd1d5c64e3791fae198d387ca9,
-        type: 3}
-      propertyPath: <AttackDatas>k__BackingField.Array.data[1].<ComboAttackTime>k__BackingField
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3010686055665750253, guid: a3ae2fbd1d5c64e3791fae198d387ca9,
-        type: 3}
-      propertyPath: <AttackDatas>k__BackingField.Array.data[1].<ComboStateIndex>k__BackingField
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3010686055665750253, guid: a3ae2fbd1d5c64e3791fae198d387ca9,
-        type: 3}
-      propertyPath: <AttackDatas>k__BackingField.Array.data[2].<ComboAttackTime>k__BackingField
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3010686055665750253, guid: a3ae2fbd1d5c64e3791fae198d387ca9,
-        type: 3}
-      propertyPath: <AttackDatas>k__BackingField.Array.data[2].<ComboStateIndex>k__BackingField
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3010686055665750253, guid: a3ae2fbd1d5c64e3791fae198d387ca9,
-        type: 3}
-      propertyPath: <AttackDatas>k__BackingField.Array.data[0].<TransitionDuration>k__BackingField
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 3010686055665750253, guid: a3ae2fbd1d5c64e3791fae198d387ca9,
-        type: 3}
-      propertyPath: <AttackDatas>k__BackingField.Array.data[1].<TransitionDuration>k__BackingField
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 3010686055665750253, guid: a3ae2fbd1d5c64e3791fae198d387ca9,
-        type: 3}
-      propertyPath: <AttackDatas>k__BackingField.Array.data[2].<TransitionDuration>k__BackingField
-      value: 0.25
-      objectReference: {fileID: 0}
     - target: {fileID: 3203440915813198194, guid: a3ae2fbd1d5c64e3791fae198d387ca9,
         type: 3}
       propertyPath: m_Name
@@ -997,12 +932,12 @@ PrefabInstance:
     - target: {fileID: 7071523676165660700, guid: a3ae2fbd1d5c64e3791fae198d387ca9,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000016878642
+      value: -0.000000016878642
       objectReference: {fileID: 0}
     - target: {fileID: 7071523676165660700, guid: a3ae2fbd1d5c64e3791fae198d387ca9,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0000000033423064
+      value: 0.0000000033423064
       objectReference: {fileID: 0}
     - target: {fileID: 7071523677535580388, guid: a3ae2fbd1d5c64e3791fae198d387ca9,
         type: 3}

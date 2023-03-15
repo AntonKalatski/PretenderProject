@@ -1,3 +1,4 @@
+using System.Globalization;
 using Game.CombatSystem.Data;
 using UnityEngine;
 
@@ -6,10 +7,11 @@ namespace Game.StateMachine.Player
     public class PlayerAttackingState : PlayerBaseState
     {
         private const string ATTACK_ANIMATION_TAG = "Attack";
-        
+
         private readonly int _attackIndex;
         private readonly AttackData _attackData;
-        private float _previousFrameTime;
+        private float _normalizedAttackTime;
+        private bool _isAttacking;
 
         public PlayerAttackingState(PlayerStateMachine playerStateMachine, int attackIndex) : base(playerStateMachine)
         {
@@ -21,16 +23,16 @@ namespace Game.StateMachine.Player
         public override void Enter()
         {
             SubscribeEvents();
-            PlayerStateMachine.Animator.CrossFadeInFixedTime(_attackData.AnimationName,
-                _attackData.TransitionDuration); //todo from config!
+            StartAttackAnimation();
         }
 
         public override void Tick()
         {
-            _previousFrameTime = GetNormalizedTime();
-           
+            _normalizedAttackTime = GetNormalizedTime();
             Move();
             FaceTarget();
+            if (_normalizedAttackTime < 1) return;
+            PlayerStateMachine.SwitchState(new PlayerMovementState(PlayerStateMachine));
         }
 
         public override void Exit()
@@ -48,10 +50,22 @@ namespace Game.StateMachine.Player
             PlayerStateMachine.InputService.OnAttackEvent -= OnAttackEventHandler;
         }
 
-        private void TryComboAttack(float normalizedTime)
+        private void StartAttackAnimation()
+        {
+            _isAttacking = true;
+            PlayerStateMachine.Animator.CrossFadeInFixedTime(_attackData.AnimationName,
+                _attackData.TransitionDuration); //todo from config!
+        }
+
+        private void OnAttackEventHandler()
+        {
+            TryComboAttack();
+        }
+
+        private void TryComboAttack()
         {
             if (_attackData.ComboStateIndex == -1) return;
-            if (normalizedTime < _attackData.ComboAttackTime) return;
+            if (_normalizedAttackTime < _attackData.ComboAttackTime) return;
             PlayerStateMachine.SwitchState(new PlayerAttackingState(PlayerStateMachine, _attackData.ComboStateIndex));
         }
 
@@ -62,31 +76,12 @@ namespace Game.StateMachine.Player
             AnimatorStateInfo nextInfo = PlayerStateMachine.Animator.GetNextAnimatorStateInfo(0);
 
             if (PlayerStateMachine.Animator.IsInTransition(0) && nextInfo.IsTag(ATTACK_ANIMATION_TAG))
-            {
                 return nextInfo.normalizedTime;
-            }
 
             if (!PlayerStateMachine.Animator.IsInTransition(0) && currentInfo.IsTag(ATTACK_ANIMATION_TAG))
-            {
                 return currentInfo.normalizedTime;
-            }
 
             return 0f;
-        }
-
-
-        private void OnAttackEventHandler()
-        {
-            var normalizedTime = GetNormalizedTime();
-            
-            if (normalizedTime > _previousFrameTime && normalizedTime < 1f)
-            {
-                TryComboAttack(normalizedTime);
-            }
-            else
-            {
-                PlayerStateMachine.SwitchState(new PlayerMovementState(PlayerStateMachine));
-            }
         }
     }
 }

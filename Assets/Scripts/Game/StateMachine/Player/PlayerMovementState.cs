@@ -16,7 +16,8 @@ namespace Game.StateMachine.Player
 
         public override void Enter()
         {
-            PlayerStateMachine.Animator.Play(_movementBlendTree);
+            PlayerStateMachine.Animator.CrossFadeInFixedTime(_movementBlendTree,
+                PlayerStateMachine.MovementConfig.TransitionDuration);
             SubscribeInputEvents();
         }
 
