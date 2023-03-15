@@ -5,9 +5,13 @@ namespace Game.Forces
     public class ForcesReceiver : MonoBehaviour
     {
         [SerializeField] private CharacterController _controller;
-        private float _verticalVelocity;
+        [SerializeField] private float _drag = 0.3f;
 
-        public Vector3 Movement => Vector3.up * _verticalVelocity;
+        private float _verticalVelocity;
+        private Vector3 _impactForce;
+        private Vector3 _dampingVelocity;
+
+        public Vector3 Movement => _impactForce + Vector3.up * _verticalVelocity;
 
         private void Update()
         {
@@ -19,6 +23,14 @@ namespace Game.Forces
             {
                 _verticalVelocity += Physics.gravity.y * Time.deltaTime;
             }
+
+
+            _impactForce = Vector3.SmoothDamp(_impactForce, Vector3.zero, ref _dampingVelocity, _drag);
+        }
+
+        public void AddForce(Vector3 force)
+        {
+            _impactForce += force;
         }
     }
 }

@@ -924,6 +924,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3010686055665750253, guid: a3ae2fbd1d5c64e3791fae198d387ca9,
+        type: 3}
+      propertyPath: <AttackDatas>k__BackingField.Array.data[2].<Force>k__BackingField
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3010686055665750253, guid: a3ae2fbd1d5c64e3791fae198d387ca9,
+        type: 3}
+      propertyPath: <AttackDatas>k__BackingField.Array.data[1].<ForceApplyTime>k__BackingField
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 3010686055665750253, guid: a3ae2fbd1d5c64e3791fae198d387ca9,
+        type: 3}
+      propertyPath: <AttackDatas>k__BackingField.Array.data[2].<ForceApplyTime>k__BackingField
+      value: 0.35
+      objectReference: {fileID: 0}
     - target: {fileID: 3203440915813198194, guid: a3ae2fbd1d5c64e3791fae198d387ca9,
         type: 3}
       propertyPath: m_Name

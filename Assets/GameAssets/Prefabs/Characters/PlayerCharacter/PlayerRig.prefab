@@ -897,7 +897,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7071523677326399209}
-  m_LocalRotation: {x: 0.212012, y: -1e-45, z: -0, w: 0.9772671}
+  m_LocalRotation: {x: 0.212012, y: -0, z: -0, w: 0.9772671}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1623,6 +1623,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4707462108610702138, guid: c06d9b820b7704f0f8df4483c801288e,
         type: 3}
+      propertyPath: <AttackDatas>k__BackingField.Array.data[0].<Force>k__BackingField
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4707462108610702138, guid: c06d9b820b7704f0f8df4483c801288e,
+        type: 3}
+      propertyPath: <AttackDatas>k__BackingField.Array.data[1].<Force>k__BackingField
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4707462108610702138, guid: c06d9b820b7704f0f8df4483c801288e,
+        type: 3}
+      propertyPath: <AttackDatas>k__BackingField.Array.data[2].<Force>k__BackingField
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4707462108610702138, guid: c06d9b820b7704f0f8df4483c801288e,
+        type: 3}
       propertyPath: <AttackDatas>k__BackingField.Array.data[0].<AnimationName>k__BackingField
       value: Attack1
       objectReference: {fileID: 0}
@@ -1635,6 +1650,21 @@ PrefabInstance:
         type: 3}
       propertyPath: <AttackDatas>k__BackingField.Array.data[2].<AnimationName>k__BackingField
       value: Attack3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4707462108610702138, guid: c06d9b820b7704f0f8df4483c801288e,
+        type: 3}
+      propertyPath: <AttackDatas>k__BackingField.Array.data[0].<ForceApplyTime>k__BackingField
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 4707462108610702138, guid: c06d9b820b7704f0f8df4483c801288e,
+        type: 3}
+      propertyPath: <AttackDatas>k__BackingField.Array.data[1].<ForceApplyTime>k__BackingField
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 4707462108610702138, guid: c06d9b820b7704f0f8df4483c801288e,
+        type: 3}
+      propertyPath: <AttackDatas>k__BackingField.Array.data[2].<ForceApplyTime>k__BackingField
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 4707462108610702138, guid: c06d9b820b7704f0f8df4483c801288e,
         type: 3}
@@ -2185,3 +2215,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _controller: {fileID: 1695181769730535154}
+  _drag: 0.1

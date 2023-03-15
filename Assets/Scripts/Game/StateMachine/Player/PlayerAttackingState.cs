@@ -1,4 +1,3 @@
-using System.Globalization;
 using Game.CombatSystem.Data;
 using UnityEngine;
 
@@ -10,8 +9,7 @@ namespace Game.StateMachine.Player
 
         private readonly int _attackIndex;
         private readonly AttackData _attackData;
-        private float _normalizedAttackTime;
-        private bool _isAttacking;
+        private bool _attackForceApplied;
 
         public PlayerAttackingState(PlayerStateMachine playerStateMachine, int attackIndex) : base(playerStateMachine)
         {
@@ -28,58 +26,72 @@ namespace Game.StateMachine.Player
 
         public override void Tick()
         {
-            _normalizedAttackTime = GetNormalizedTime();
+            float normalizedAttackTime = GetNormalizedTime();
             Move();
             FaceTarget();
-            if (_normalizedAttackTime < 1) return;
-            PlayerStateMachine.SwitchState(new PlayerMovementState(PlayerStateMachine));
+            if (normalizedAttackTime > _attackData.ForceApplyTime) TryApplyForce();
+            if (normalizedAttackTime < 1) return;
+
+            if (PlayerStateMachine.Targeter.CurrentTarget is not null)
+            {
+                PlayerStateMachine.SwitchState(new PlayerTargetingState(PlayerStateMachine));
+            }
+            else
+            {
+                PlayerStateMachine.SwitchState(new PlayerMovementState(PlayerStateMachine));
+            }
         }
 
-        public override void Exit()
-        {
-            UnsubscribeEvents();
-        }
+        public override void Exit() => UnsubscribeEvents();
 
-        private void SubscribeEvents()
-        {
-            PlayerStateMachine.InputService.OnAttackEvent += OnAttackEventHandler;
-        }
+        private void SubscribeEvents() => PlayerStateMachine.InputService.OnAttackEvent += OnAttackEventHandler;
 
-        private void UnsubscribeEvents()
+        private void UnsubscribeEvents() => PlayerStateMachine.InputService.OnAttackEvent -= OnAttackEventHandler;
+
+        private void TryApplyForce()
         {
-            PlayerStateMachine.InputService.OnAttackEvent -= OnAttackEventHandler;
+            if (_attackForceApplied) return;
+            PlayerStateMachine.ForcesReceiver.AddForce(PlayerStateMachine.transform.forward * _attackData.Force);
+            _attackForceApplied = true;
         }
 
         private void StartAttackAnimation()
         {
-            _isAttacking = true;
             PlayerStateMachine.Animator.CrossFadeInFixedTime(_attackData.AnimationName,
                 _attackData.TransitionDuration); //todo from config!
         }
 
         private void OnAttackEventHandler()
         {
-            TryComboAttack();
+            var normalizedAttackTime = GetNormalizedTime();
+            TryComboAttack(normalizedAttackTime);
         }
 
-        private void TryComboAttack()
+        private void TryComboAttack(float normalizedAttackTime)
         {
             if (_attackData.ComboStateIndex == -1) return;
-            if (_normalizedAttackTime < _attackData.ComboAttackTime) return;
+            if (normalizedAttackTime < _attackData.ComboAttackTime) return;
             PlayerStateMachine.SwitchState(new PlayerAttackingState(PlayerStateMachine, _attackData.ComboStateIndex));
         }
 
         private float GetNormalizedTime()
         {
-            //layerIndex = layer zero because we ve got 1 layer  - BaseLayer
             AnimatorStateInfo currentInfo = PlayerStateMachine.Animator.GetCurrentAnimatorStateInfo(0);
             AnimatorStateInfo nextInfo = PlayerStateMachine.Animator.GetNextAnimatorStateInfo(0);
-
             if (PlayerStateMachine.Animator.IsInTransition(0) && nextInfo.IsTag(ATTACK_ANIMATION_TAG))
+            {
                 return nextInfo.normalizedTime;
+            }
+
+            if (!currentInfo.IsName(_attackData.AnimationName))
+            {
+                return nextInfo.normalizedTime;
+            }
 
             if (!PlayerStateMachine.Animator.IsInTransition(0) && currentInfo.IsTag(ATTACK_ANIMATION_TAG))
+            {
                 return currentInfo.normalizedTime;
+            }
 
             return 0f;
         }

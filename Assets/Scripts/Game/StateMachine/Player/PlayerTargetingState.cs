@@ -34,7 +34,6 @@ namespace Game.StateMachine.Player
         public override void Exit()
         {
             UnsubscribeInputEvents();
-            PlayerStateMachine.Targeter.ResetCurrentTarget();
         }
 
         private void SubscribeInputEvents()
@@ -56,6 +55,7 @@ namespace Game.StateMachine.Player
 
         private void OnLockUnlockTargetHandler()
         {
+            PlayerStateMachine.Targeter.ResetCurrentTarget();
             PlayerStateMachine.SwitchState(new PlayerMovementState(PlayerStateMachine));
         }
         
