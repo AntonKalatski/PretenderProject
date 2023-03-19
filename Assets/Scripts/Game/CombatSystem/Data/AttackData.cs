@@ -17,5 +17,7 @@ namespace Game.CombatSystem.Data
         [field: SerializeField] public float ForceApplyTime { get; private set; }
 
         [field: SerializeField] public float Force { get; private set; }
+
+        [field: SerializeField] public int Damage { get; private set; }
     }
 }

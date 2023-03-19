@@ -13,7 +13,7 @@ namespace Game.StateMachine.Player
 
         public override void Enter()
         {
-            PlayerStateMachine.Animator.Play(_targetingBlendTree);
+            PlayerStateMachine.Animator.CrossFade(_targetingBlendTree,PlayerStateMachine.MovementConfig.TransitionDuration);
             SubscribeInputEvents();
         }
 

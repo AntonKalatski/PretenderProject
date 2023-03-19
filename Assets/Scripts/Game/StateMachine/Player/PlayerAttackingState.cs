@@ -21,6 +21,7 @@ namespace Game.StateMachine.Player
         public override void Enter()
         {
             SubscribeEvents();
+            SetAttackSettings();
             StartAttackAnimation();
         }
 
@@ -53,6 +54,11 @@ namespace Game.StateMachine.Player
             if (_attackForceApplied) return;
             PlayerStateMachine.ForcesReceiver.AddForce(PlayerStateMachine.transform.forward * _attackData.Force);
             _attackForceApplied = true;
+        }
+        
+        private void SetAttackSettings()
+        {
+            PlayerStateMachine.WeaponHandler.SetWeaponDamage(_attackData.Damage);
         }
 
         private void StartAttackAnimation()
