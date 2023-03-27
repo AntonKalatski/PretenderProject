@@ -72,7 +72,7 @@ namespace Game.StateMachine.Player
 
         private void PreformAnimation(Vector3 direction)
         {
-            PlayerStateMachine.Animator.SetFloat(_movementSpeed, direction.magnitude, 0.1f, Time.deltaTime);
+            PlayerStateMachine.Animator.SetFloat(_movementSpeed, direction.magnitude, 0.1f, Time.deltaTime);//TODO damp time to config!!
         }
 
         private void PreformRotation(Vector3 direction)

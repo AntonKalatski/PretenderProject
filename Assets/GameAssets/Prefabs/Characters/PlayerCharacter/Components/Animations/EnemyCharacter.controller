@@ -11,7 +11,7 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 4601196471427890930}
-    m_Position: {x: 410, y: 90, z: 0}
+    m_Position: {x: 410, y: 110, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -46,7 +46,7 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: MovementSpeed
     m_Mirror: 0
-  m_BlendParameter: Speed
+  m_BlendParameter: MovementSpeed
   m_BlendParameterY: MovementSpeed
   m_MinThreshold: 0
   m_MaxThreshold: 1
@@ -62,7 +62,7 @@ AnimatorController:
   m_Name: EnemyCharacter
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: Speed
+  - m_Name: MovementSpeed
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0

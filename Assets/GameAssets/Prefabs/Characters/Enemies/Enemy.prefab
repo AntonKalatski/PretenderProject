@@ -1728,7 +1728,7 @@ Transform:
   - {fileID: 3430177497974854944}
   - {fileID: 5620537808422617403}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6498440155015117922
 MonoBehaviour:
@@ -1742,6 +1742,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91723d3477484b70819cf3bfe373dbe6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Animator>k__BackingField: {fileID: 1891947722}
+  <MovementConfig>k__BackingField: {fileID: 11400000, guid: bb792bb8e7b744f7aa038d7f3ce2daef,
+    type: 2}
 --- !u!114 &8492237779173624280
 MonoBehaviour:
   m_ObjectHideFlags: 0

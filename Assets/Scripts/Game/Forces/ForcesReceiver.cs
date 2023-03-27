@@ -24,7 +24,6 @@ namespace Game.Forces
                 _verticalVelocity += Physics.gravity.y * Time.deltaTime;
             }
 
-
             _impactForce = Vector3.SmoothDamp(_impactForce, Vector3.zero, ref _dampingVelocity, _drag);
         }
 

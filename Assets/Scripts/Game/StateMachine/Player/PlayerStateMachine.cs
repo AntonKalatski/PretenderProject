@@ -1,5 +1,6 @@
 using Game.CombatSystem.Data;
 using Game.CombatSystem.Targeting;
+using Game.Configs.Base;
 using Game.Configs.Player;
 using Game.Forces;
 using Game.WeaponSystem.Handlers;
