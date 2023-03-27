@@ -1700,6 +1700,7 @@ GameObject:
   - component: {fileID: 6498440155015117922}
   - component: {fileID: 8492237779173624280}
   - component: {fileID: 6237723724524433465}
+  - component: {fileID: 5192754678387363483}
   - component: {fileID: 1891947722}
   - component: {fileID: 5827792332785491256}
   - component: {fileID: 2756314365453035589}
@@ -1728,7 +1729,7 @@ Transform:
   - {fileID: 3430177497974854944}
   - {fileID: 5620537808422617403}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6498440155015117922
 MonoBehaviour:
@@ -1742,9 +1743,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91723d3477484b70819cf3bfe373dbe6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <DetectionRange>k__BackingField: 10
   <Animator>k__BackingField: {fileID: 1891947722}
   <MovementConfig>k__BackingField: {fileID: 11400000, guid: bb792bb8e7b744f7aa038d7f3ce2daef,
     type: 2}
+  <CharacterController>k__BackingField: {fileID: 5827792332785491256}
+  <ForcesReceiver>k__BackingField: {fileID: 5192754678387363483}
 --- !u!114 &8492237779173624280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1770,6 +1774,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfe11bbc9dd741c29db0b0684a9015b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5192754678387363483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5882145473433699293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95054868a1b44bc4a091e8d0900a48a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _controller: {fileID: 5827792332785491256}
+  _drag: 0.1
 --- !u!95 &1891947722
 Animator:
   serializedVersion: 5

@@ -16,11 +16,18 @@ namespace Game.StateMachine.Enemy
         {
             EnemyStateMachine.Animator.CrossFadeInFixedTime(_movementBlendTree,
                 EnemyStateMachine.MovementConfig.TransitionDuration);
-            
         }
 
         public override void Tick()
         {
+            Move();
+            
+            if (IsInChaseRange())
+            {
+                Debug.Log("In range!");
+                return;
+            }
+            
             EnemyStateMachine.Animator.SetFloat(_movementSpeed, 0, 0.1f, Time.deltaTime);
         }
 

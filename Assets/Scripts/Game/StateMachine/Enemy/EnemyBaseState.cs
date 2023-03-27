@@ -1,4 +1,5 @@
 using Modules.StateMachine;
+using UnityEngine;
 
 namespace Game.StateMachine.Enemy
 {
@@ -18,6 +19,22 @@ namespace Game.StateMachine.Enemy
 
         public override void Exit()
         {
+        }
+        
+        protected void Move()
+        {
+            Move(Vector3.zero);
+        }
+
+        protected void Move(Vector3 direction)
+        {
+            EnemyStateMachine.CharacterController.Move((direction + EnemyStateMachine.ForcesReceiver.Movement) * Time.deltaTime);
+        }
+
+        protected bool IsInChaseRange()
+        {
+            float sqrDistance = (EnemyStateMachine.transform.position - EnemyStateMachine.Player.transform.position).sqrMagnitude;
+            return sqrDistance <= EnemyStateMachine.DetectionRange * EnemyStateMachine.DetectionRange;
         }
     }
 }
