@@ -1702,6 +1702,7 @@ GameObject:
   - component: {fileID: 6237723724524433465}
   - component: {fileID: 5192754678387363483}
   - component: {fileID: 1891947722}
+  - component: {fileID: 1192840988588355120}
   - component: {fileID: 5827792332785491256}
   - component: {fileID: 2756314365453035589}
   m_Layer: 0
@@ -1729,7 +1730,7 @@ Transform:
   - {fileID: 3430177497974854944}
   - {fileID: 5620537808422617403}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6498440155015117922
 MonoBehaviour:
@@ -1749,6 +1750,7 @@ MonoBehaviour:
     type: 2}
   <CharacterController>k__BackingField: {fileID: 5827792332785491256}
   <ForcesReceiver>k__BackingField: {fileID: 5192754678387363483}
+  <Agent>k__BackingField: {fileID: 1192840988588355120}
 --- !u!114 &8492237779173624280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1808,6 +1810,28 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!195 &1192840988588355120
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5882145473433699293}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 1
+  m_Acceleration: 0
+  avoidancePriority: 50
+  m_AngularSpeed: 0
+  m_StoppingDistance: 1
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!143 &5827792332785491256
 CharacterController:
   m_ObjectHideFlags: 0

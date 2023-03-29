@@ -24,7 +24,7 @@ namespace Game.StateMachine.Enemy
             
             if (IsInChaseRange())
             {
-                Debug.Log("In range!");
+                EnemyStateMachine.SwitchState(new EnemyChasingState(EnemyStateMachine));
                 return;
             }
             
