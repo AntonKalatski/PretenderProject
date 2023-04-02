@@ -1,4 +1,3 @@
-using Modules.Services.PlayerService;
 using UnityEngine;
 
 namespace Game.StateMachine.Enemy
@@ -27,12 +26,18 @@ namespace Game.StateMachine.Enemy
                 return;
             }
 
-            MoveToPlayer();
-            
+            if (IsInAttackRange())
+            {
+                EnemyStateMachine.SwitchState(new EnemyAttackState(EnemyStateMachine));
+                return;
+            }
+
+            MoveToTarget();
+            FaceTarget();
             EnemyStateMachine.Animator.SetFloat(_movementSpeed, 1, 0.1f, Time.deltaTime);
         }
 
-        private void MoveToPlayer()
+        private void MoveToTarget()
         {
             EnemyStateMachine.Agent.destination = EnemyStateMachine.Player.transform.position;
             var desiredVelocity = EnemyStateMachine.Agent.desiredVelocity.normalized;

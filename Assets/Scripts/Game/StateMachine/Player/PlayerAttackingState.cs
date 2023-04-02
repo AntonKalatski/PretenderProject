@@ -1,5 +1,4 @@
 using Game.CombatSystem.Data;
-using UnityEngine;
 
 namespace Game.StateMachine.Player
 {
@@ -27,7 +26,8 @@ namespace Game.StateMachine.Player
 
         public override void Tick()
         {
-            float normalizedAttackTime = GetNormalizedTime();
+            var animator = PlayerStateMachine.Animator;
+            float normalizedAttackTime = GetNormalizedTime(animator, ATTACK_ANIMATION_TAG, _attackData.AnimationName);
             Move();
             FaceTarget();
             if (normalizedAttackTime > _attackData.ForceApplyTime) TryApplyForce();
@@ -55,10 +55,10 @@ namespace Game.StateMachine.Player
             PlayerStateMachine.ForcesReceiver.AddForce(PlayerStateMachine.transform.forward * _attackData.Force);
             _attackForceApplied = true;
         }
-        
+
         private void SetAttackSettings()
         {
-            PlayerStateMachine.WeaponHandler.SetWeaponDamage(_attackData.Damage);
+            PlayerStateMachine.WeaponHandler.SetWeaponDamage(_attackData.Damage, _attackData.KnockBack);
         }
 
         private void StartAttackAnimation()
@@ -69,7 +69,8 @@ namespace Game.StateMachine.Player
 
         private void OnAttackEventHandler()
         {
-            var normalizedAttackTime = GetNormalizedTime();
+            var animator = PlayerStateMachine.Animator;
+            var normalizedAttackTime = GetNormalizedTime(animator, ATTACK_ANIMATION_TAG, _attackData.AnimationName);
             TryComboAttack(normalizedAttackTime);
         }
 
@@ -78,28 +79,6 @@ namespace Game.StateMachine.Player
             if (_attackData.ComboStateIndex == -1) return;
             if (normalizedAttackTime < _attackData.ComboAttackTime) return;
             PlayerStateMachine.SwitchState(new PlayerAttackingState(PlayerStateMachine, _attackData.ComboStateIndex));
-        }
-
-        private float GetNormalizedTime()
-        {
-            AnimatorStateInfo currentInfo = PlayerStateMachine.Animator.GetCurrentAnimatorStateInfo(0);
-            AnimatorStateInfo nextInfo = PlayerStateMachine.Animator.GetNextAnimatorStateInfo(0);
-            if (PlayerStateMachine.Animator.IsInTransition(0) && nextInfo.IsTag(ATTACK_ANIMATION_TAG))
-            {
-                return nextInfo.normalizedTime;
-            }
-
-            if (!currentInfo.IsName(_attackData.AnimationName))
-            {
-                return nextInfo.normalizedTime;
-            }
-
-            if (!PlayerStateMachine.Animator.IsInTransition(0) && currentInfo.IsTag(ATTACK_ANIMATION_TAG))
-            {
-                return currentInfo.normalizedTime;
-            }
-
-            return 0f;
         }
     }
 }

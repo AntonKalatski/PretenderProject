@@ -1,10 +1,12 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Game.Forces
 {
-    public class ForcesReceiver : MonoBehaviour
+    public class ForcesReceiver : MonoBehaviour //TODO refactor this
     {
         [SerializeField] private CharacterController _controller;
+        [SerializeField] private NavMeshAgent _navMeshAgent;
         [SerializeField] private float _drag = 0.3f;
 
         private float _verticalVelocity;
@@ -25,11 +27,17 @@ namespace Game.Forces
             }
 
             _impactForce = Vector3.SmoothDamp(_impactForce, Vector3.zero, ref _dampingVelocity, _drag);
+
+            if (_navMeshAgent != null)
+                if (_impactForce == Vector3.zero)
+                    _navMeshAgent.enabled = true;
         }
 
         public void AddForce(Vector3 force)
         {
             _impactForce += force;
+            if (_navMeshAgent != null)
+                _navMeshAgent.enabled = false;
         }
     }
 }

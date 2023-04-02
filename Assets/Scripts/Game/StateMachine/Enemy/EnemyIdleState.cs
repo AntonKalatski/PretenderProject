@@ -21,6 +21,7 @@ namespace Game.StateMachine.Enemy
         public override void Tick()
         {
             Move();
+            FaceTarget();
             
             if (IsInChaseRange())
             {

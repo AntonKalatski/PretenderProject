@@ -8,16 +8,16 @@ namespace Game.WeaponSystem.Handlers
         [SerializeField] private WeaponDamage _weaponDamage;
         [SerializeField] private GameObject _weapon;
 
-        public void SetWeaponDamage(int damage)
+        public void SetWeaponDamage(int damage, float knockBack)
         {
-            _weaponDamage.SetCurrentDamage(damage);
+            _weaponDamage.SetCurrentDamage(damage, knockBack);
         }
-        
+
         public void EnableWeapon()
         {
             _weapon.SetActive(true);
         }
-        
+
         public void DisableWeapon()
         {
             _weapon.SetActive(false);

@@ -1,15 +1,17 @@
 using System.Collections.Generic;
+using Game.Forces;
 using UnityEngine;
 using Game.HealthSystem;
 
 namespace Game.WeaponSystem.Damages
 {
-    public class WeaponDamage : MonoBehaviour
+    public class WeaponDamage : MonoBehaviour//TODO refactor
     {
         [SerializeField] private Collider playerCollider;
-        [SerializeField] private int currentDamage;
-
-        private List<Collider> _colliders = new();
+        
+        private readonly List<Collider> _colliders = new();
+        private float _knockBack;
+        private int _currentDamage = 10;
 
         private void OnTriggerEnter(Collider collider)
         {
@@ -17,7 +19,12 @@ namespace Game.WeaponSystem.Damages
             if(_colliders.Contains(collider)) return;
             _colliders.Add(collider);
             if (!collider.TryGetComponent(out Health health)) return;
-            health.DealDamage(currentDamage);
+            health.DealDamage(_currentDamage);
+            if(!collider.TryGetComponent(out ForcesReceiver forcesReceiver)) return;
+            var targetPosition = collider.transform.position;
+            var myPosition = playerCollider.transform.position;
+            var direction = (targetPosition - myPosition).normalized;
+            forcesReceiver.AddForce(direction * _knockBack);
         }
 
         private void OnEnable()
@@ -25,9 +32,10 @@ namespace Game.WeaponSystem.Damages
             _colliders?.Clear();
         }
 
-        public void SetCurrentDamage(int damage)
+        public void SetCurrentDamage(int damage, float knockBack)
         {
-            currentDamage = damage;
+            _currentDamage = damage;
+            _knockBack = knockBack;
         }
     }
 }
