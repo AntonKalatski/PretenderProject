@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Game.HealthSystem
@@ -7,6 +8,7 @@ namespace Game.HealthSystem
         [SerializeField] private int maxHealth = 100;
 
         private int _currentHealth;
+        public event Action OnDamageTaken;
 
         private void Start()
         {
@@ -17,8 +19,8 @@ namespace Game.HealthSystem
         {
             if (_currentHealth == 0) return;
             _currentHealth = Mathf.Max(_currentHealth - damage, 0);
-            Debug.Log($"Name: {gameObject.name}");
-            Debug.Log($"Health: {_currentHealth}");
+            OnDamageTaken?.Invoke();
+            Debug.Log($"Name: {gameObject.name}/Health: {_currentHealth}");
         }
     }
 }

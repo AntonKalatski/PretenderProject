@@ -29,5 +29,16 @@ namespace Game.StateMachine.Player
                 Quaternion.LookRotation(lookDirection),
                 PlayerStateMachine.MovementConfig.RotationSpeed * Time.deltaTime);
         }
+        protected void ReturnToState()
+        {
+            if (PlayerStateMachine.Targeter.CurrentTarget != null)
+            {
+                PlayerStateMachine.SwitchState(new PlayerTargetingState(PlayerStateMachine));
+            }
+            else
+            {
+                PlayerStateMachine.SwitchState(new PlayerMovementState(PlayerStateMachine));
+            }
+        }
     }
 }

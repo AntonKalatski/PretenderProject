@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f308a5e6fe7d4e6e92328e8647a91aba, type: 3}
   m_Name: EnemyAttackConfig
   m_EditorClassIdentifier: 
-  <AttackRange>k__BackingField: 1.5
+  <AttackRange>k__BackingField: 1.2
   <AttackDamage>k__BackingField: 10
   <KnockBack>k__BackingField: 15

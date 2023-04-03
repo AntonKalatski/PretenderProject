@@ -1756,7 +1756,7 @@ MonoBehaviour:
   <ForcesReceiver>k__BackingField: {fileID: 5192754678387363483}
   <Agent>k__BackingField: {fileID: 1192840988588355120}
   <WeaponHandler>k__BackingField: {fileID: 1892069899580956928}
-  <AttackRange>k__BackingField: 1.5
+  <Health>k__BackingField: {fileID: 8492237779173624280}
 --- !u!114 &1892069899580956928
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1809,6 +1809,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _controller: {fileID: 5827792332785491256}
+  _navMeshAgent: {fileID: 1192840988588355120}
   _drag: 0.1
 --- !u!95 &1891947722
 Animator:
@@ -2418,7 +2419,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCollider: {fileID: 5827792332785491256}
-  currentDamage: 10
 --- !u!1 &7227108693646129144
 GameObject:
   m_ObjectHideFlags: 0

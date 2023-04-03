@@ -39,10 +39,14 @@ namespace Game.StateMachine.Enemy
 
         private void MoveToTarget()
         {
-            EnemyStateMachine.Agent.destination = EnemyStateMachine.Player.transform.position;
-            var desiredVelocity = EnemyStateMachine.Agent.desiredVelocity.normalized;
-            var direction = desiredVelocity * EnemyStateMachine.MovementConfig.MovementSpeed;
-            Move(direction);
+            if (EnemyStateMachine.Agent.isOnNavMesh)
+            {
+                EnemyStateMachine.Agent.destination = EnemyStateMachine.Player.transform.position;
+                var desiredVelocity = EnemyStateMachine.Agent.desiredVelocity.normalized;
+                var direction = desiredVelocity * EnemyStateMachine.MovementConfig.MovementSpeed;
+                Move(direction);
+            }
+          
             EnemyStateMachine.Agent.velocity = EnemyStateMachine.CharacterController.velocity;
         }
 

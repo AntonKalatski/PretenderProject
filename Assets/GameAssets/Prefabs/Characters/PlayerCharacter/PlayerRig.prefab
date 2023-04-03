@@ -88,6 +88,22 @@ MonoBehaviour:
     m_ParentHash: -409901381
   - m_Hash: -1671883663
     m_ParentHash: 756556552
+  - m_Hash: 853483624
+    m_ParentHash: -1671883663
+  - m_Hash: 1431381833
+    m_ParentHash: -1671883663
+  - m_Hash: 173284291
+    m_ParentHash: -1671883663
+  - m_Hash: 490555841
+    m_ParentHash: -1671883663
+  - m_Hash: 318495910
+    m_ParentHash: 756556552
+  - m_Hash: -1947038436
+    m_ParentHash: 756556552
+  - m_Hash: -51004022
+    m_ParentHash: 756556552
+  - m_Hash: 1630472046
+    m_ParentHash: 756556552
 --- !u!1 &3203440915813198194
 GameObject:
   m_ObjectHideFlags: 0
@@ -691,7 +707,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7071523676165660702}
-  m_LocalRotation: {x: 0.19424808, y: 0.000000016878642, z: -0.0000000033423064, w: 0.98095244}
+  m_LocalRotation: {x: 0.19424808, y: -0.000000016878642, z: 0.0000000033423064, w: 0.98095244}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1226,6 +1242,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4707462108610702138, guid: c06d9b820b7704f0f8df4483c801288e,
+        type: 3}
+      propertyPath: <Health>k__BackingField
+      value: 
+      objectReference: {fileID: 4522905409389525985}
     - target: {fileID: 4707462108610702138, guid: c06d9b820b7704f0f8df4483c801288e,
         type: 3}
       propertyPath: <AttackDatas>k__BackingField.Array.data[1].<Force>k__BackingField

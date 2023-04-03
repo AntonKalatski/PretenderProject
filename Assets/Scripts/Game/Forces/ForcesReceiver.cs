@@ -27,10 +27,10 @@ namespace Game.Forces
             }
 
             _impactForce = Vector3.SmoothDamp(_impactForce, Vector3.zero, ref _dampingVelocity, _drag);
-
-            if (_navMeshAgent != null)
-                if (_impactForce == Vector3.zero)
-                    _navMeshAgent.enabled = true;
+            if (_navMeshAgent == null) return;
+            if (_impactForce.sqrMagnitude >= 0.2f * 0.2f) return;
+            _impactForce = Vector3.zero;
+            _navMeshAgent.enabled = true;
         }
 
         public void AddForce(Vector3 force)
