@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: EnemyAttackConfig
   m_EditorClassIdentifier: 
   <AttackRange>k__BackingField: 1.2
-  <AttackDamage>k__BackingField: 10
+  <AttackDamage>k__BackingField: 50
   <KnockBack>k__BackingField: 15

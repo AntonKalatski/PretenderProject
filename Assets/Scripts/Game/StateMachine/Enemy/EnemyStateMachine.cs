@@ -35,11 +35,13 @@ namespace Game.StateMachine.Enemy
         
         [field: SerializeField] public RagdollController Ragdoll { get; private set; }
 
-        public GameObject Player { get; private set; }
+        public Health Player { get; private set; }
 
         private void Awake()
         {
-            Player = PlayerService.Instance.Player;
+            if (!PlayerService.Instance.Player.TryGetComponent<Health>(out var playerHealth))
+                Debug.LogError("Can't get player Health component");
+            Player = playerHealth;
             Agent.updatePosition = false;
             Agent.updateRotation = false;
             SwitchState(new EnemyIdleState(this));

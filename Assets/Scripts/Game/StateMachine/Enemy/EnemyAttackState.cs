@@ -24,6 +24,7 @@ namespace Game.StateMachine.Enemy
             var animator = EnemyStateMachine.Animator;
             if (GetNormalizedTime(animator, ATTACK_ANIMATION_TAG, ATTACK_ANIMATION_TAG) >= 1)
                 EnemyStateMachine.SwitchState(new EnemyChasingState(EnemyStateMachine));
+            FaceTarget();
         }
 
         public override void Exit()

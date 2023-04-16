@@ -45,6 +45,7 @@ namespace Game.StateMachine.Enemy
         
         protected bool IsInAttackRange()
         {
+            if (EnemyStateMachine.Player.IsDead) return false;
             var playerPos = EnemyStateMachine.Player.transform.position;
             var transformPos = EnemyStateMachine.transform.position;
             var attackRange = EnemyStateMachine.AttackConfig.AttackRange;
@@ -54,6 +55,7 @@ namespace Game.StateMachine.Enemy
 
         protected bool IsInChaseRange()
         {
+            if (EnemyStateMachine.Player.IsDead) return false;
             float sqrDistance = (EnemyStateMachine.transform.position - EnemyStateMachine.Player.transform.position).sqrMagnitude;
             return sqrDistance <= EnemyStateMachine.DetectionRange * EnemyStateMachine.DetectionRange;
         }

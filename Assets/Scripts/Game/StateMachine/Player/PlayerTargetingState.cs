@@ -7,13 +7,15 @@ namespace Game.StateMachine.Player
         private static readonly int _targetingBlendTree = Animator.StringToHash("Targeting");
         private static readonly int _targetingForward = Animator.StringToHash("TargetingForward");
         private static readonly int _targetingRight = Animator.StringToHash("TargetingRight");
+
         public PlayerTargetingState(PlayerStateMachine playerStateMachine) : base(playerStateMachine)
         {
         }
 
         public override void Enter()
         {
-            PlayerStateMachine.Animator.CrossFade(_targetingBlendTree,PlayerStateMachine.MovementConfig.TransitionDuration);
+            PlayerStateMachine.Animator.CrossFade(_targetingBlendTree,
+                PlayerStateMachine.MovementConfig.TransitionDuration);
             SubscribeInputEvents();
         }
 
@@ -40,12 +42,14 @@ namespace Game.StateMachine.Player
         {
             PlayerStateMachine.InputService.OnLockUnlockTargetEvent += OnLockUnlockTargetHandler;
             PlayerStateMachine.InputService.OnAttackEvent += OnAttackEventHandler;
+            PlayerStateMachine.InputService.OnBlockEvent += OnBlockEventHandler;
         }
 
         private void UnsubscribeInputEvents()
         {
             PlayerStateMachine.InputService.OnLockUnlockTargetEvent -= OnLockUnlockTargetHandler;
             PlayerStateMachine.InputService.OnAttackEvent -= OnAttackEventHandler;
+            PlayerStateMachine.InputService.OnBlockEvent -= OnBlockEventHandler;
         }
 
         private void OnAttackEventHandler()
@@ -53,32 +57,40 @@ namespace Game.StateMachine.Player
             PlayerStateMachine.SwitchState(new PlayerAttackingState(PlayerStateMachine, 0));
         }
 
+        private void OnBlockEventHandler(bool isBlocking)
+        {
+            if (isBlocking)
+                PlayerStateMachine.SwitchState(new PlayerBlockingState(PlayerStateMachine));
+        }
+
         private void OnLockUnlockTargetHandler()
         {
             PlayerStateMachine.Targeter.ResetCurrentTarget();
             PlayerStateMachine.SwitchState(new PlayerMovementState(PlayerStateMachine));
         }
-        
+
         private void PreformAnimation()
         {
             var movementValue = PlayerStateMachine.InputService.MovementValue;
-            
+
             if (movementValue.y == 0)
             {
                 PlayerStateMachine.Animator.SetFloat(_targetingForward, 0, 0.1f, Time.deltaTime);
             }
             else
             {
-                PlayerStateMachine.Animator.SetFloat(_targetingForward, movementValue.y > 0 ? 1f : -1f, 0.1f, Time.deltaTime);
+                PlayerStateMachine.Animator.SetFloat(_targetingForward, movementValue.y > 0 ? 1f : -1f, 0.1f,
+                    Time.deltaTime);
             }
-            
+
             if (movementValue.x == 0)
             {
                 PlayerStateMachine.Animator.SetFloat(_targetingRight, 0, 0.1f, Time.deltaTime);
             }
             else
             {
-                PlayerStateMachine.Animator.SetFloat(_targetingRight, movementValue.x > 0 ? 1f : -1f, 0.1f, Time.deltaTime);
+                PlayerStateMachine.Animator.SetFloat(_targetingRight, movementValue.x > 0 ? 1f : -1f, 0.1f,
+                    Time.deltaTime);
             }
         }
 

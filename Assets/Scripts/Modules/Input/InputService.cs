@@ -10,6 +10,7 @@ public class InputService : MonoBehaviour, InputProvider.IPlayerActions
     public event Action OnDodgeEvent;
     public event Action OnAttackEvent;
     public event Action OnLockUnlockTargetEvent;
+    public event Action<bool> OnBlockEvent;
 
     private void Awake()
     {
@@ -59,5 +60,13 @@ public class InputService : MonoBehaviour, InputProvider.IPlayerActions
     {
         if (!context.performed) return;
         OnAttackEvent?.Invoke();
+    }
+
+    public void OnBlock(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+            OnBlockEvent?.Invoke(true);
+        if (context.canceled)
+            OnBlockEvent?.Invoke(false);
     }
 }
