@@ -9,6 +9,7 @@ namespace Game.HealthSystem
 
         private int _currentHealth;
         public event Action OnDamageTaken;
+        public event Action OnDie;
 
         private void Start()
         {
@@ -20,7 +21,9 @@ namespace Game.HealthSystem
             if (_currentHealth == 0) return;
             _currentHealth = Mathf.Max(_currentHealth - damage, 0);
             OnDamageTaken?.Invoke();
+            if(_currentHealth == 0) OnDie?.Invoke();
             Debug.Log($"Name: {gameObject.name}/Health: {_currentHealth}");
+            
         }
     }
 }
